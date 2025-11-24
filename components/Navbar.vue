@@ -57,15 +57,6 @@
     <Transition name="mobile-menu">
       <div v-if="isMobileMenuOpen" class="mobile-menu-overlay" @click="closeMobileMenu">
         <div class="mobile-menu" @click.stop>
-          <div class="mobile-menu-header">
-            <span class="mobile-menu-title">Menu</span>
-            <button class="mobile-menu-close" @click="closeMobileMenu" aria-label="Close menu">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <line x1="18" y1="6" x2="6" y2="18"></line>
-                <line x1="6" y1="6" x2="18" y2="18"></line>
-              </svg>
-            </button>
-          </div>
           <div class="mobile-menu-links">
             <NuxtLink to="/" class="mobile-nav-link" :class="{ active: isHome }" @click="closeMobileMenu">
               <span>Home</span>
@@ -353,35 +344,81 @@ onUnmounted(() => {
 .hamburger {
   display: none;
   flex-direction: column;
-  justify-content: space-around;
-  width: 32px;
-  height: 26px;
-  background: transparent;
-  border: none;
+  justify-content: center;
+  align-items: center;
+  width: 44px;
+  height: 44px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border);
+  border-radius: 12px;
   cursor: pointer;
-  padding: 0;
+  padding: 10px;
   z-index: 101;
+  gap: 5px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.hamburger::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.hamburger:hover::before {
+  left: 100%;
+}
+
+.hamburger:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.hamburger:active {
+  transform: translateY(0);
 }
 
 .hamburger-line {
-  width: 100%;
+  width: 20px;
   height: 1px;
   background: var(--text);
   border-radius: 2px;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   transform-origin: center;
+  position: relative;
 }
 
 .hamburger-line.active:nth-child(1) {
-  transform: rotate(45deg) translate(8px, 8px);
+  transform: rotate(45deg) translate(5px, 5px);
+  width: 20px;
 }
 
 .hamburger-line.active:nth-child(2) {
   opacity: 0;
+  transform: scaleX(0);
 }
 
 .hamburger-line.active:nth-child(3) {
-  transform: rotate(-45deg) translate(7px, -7px);
+  transform: rotate(-45deg) translate(5px, -5px);
+  width: 20px;
+}
+
+:root.light-mode .hamburger {
+  background: rgba(0, 0, 0, 0.05);
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+:root.light-mode .hamburger:hover {
+  background: rgba(0, 0, 0, 0.1);
+  border-color: rgba(0, 0, 0, 0.15);
 }
 
 /* Mobile Menu */
@@ -391,8 +428,8 @@ onUnmounted(() => {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(4px);
+  /* background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px); */
   z-index: 99;
   display: flex;
   align-items: flex-start;
@@ -447,7 +484,7 @@ onUnmounted(() => {
 .mobile-menu-links {
   display: flex;
   flex-direction: column;
-  padding: 1rem 0;
+  /* padding: 1rem 0; */
 }
 
 .mobile-nav-link {
