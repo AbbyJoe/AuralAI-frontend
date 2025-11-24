@@ -2,7 +2,7 @@ import axios from 'axios'
 
 export const useAnalyzer = () => {
   const config = useRuntimeConfig()
-  const apiBase = config.public.apiBase || 'http://localhost:3001'
+  const apiBase = config.public.apiBase || 'hhttps://auralai-backend.onrender.com'
 
   const analyzeAudio = async (file, onProgress) => {
     const formData = new FormData()
